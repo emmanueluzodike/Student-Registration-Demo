@@ -20,8 +20,12 @@ public class StudentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String firstName;
+    private String lastName;
+    private String password;
+    private String major;
     private int creditHours;
+
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
