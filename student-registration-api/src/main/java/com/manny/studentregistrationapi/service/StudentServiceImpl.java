@@ -1,19 +1,26 @@
 package com.manny.studentregistrationapi.service;
 
+import com.manny.studentregistrationapi.entity.CourseEntity;
 import com.manny.studentregistrationapi.entity.StudentEntity;
+import com.manny.studentregistrationapi.model.Course;
 import com.manny.studentregistrationapi.model.Student;
+import com.manny.studentregistrationapi.repository.CourseRepository;
 import com.manny.studentregistrationapi.repository.StudentRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private final StudentRepository studentRepository;
+    private final CourseRepository courseRepository;
 
-    public StudentServiceImpl(StudentRepository studentRepository) {
+    public StudentServiceImpl(StudentRepository studentRepository, CourseRepository courseRepository) {
         this.studentRepository = studentRepository;
+        this.courseRepository = courseRepository;
     }
 
     @Override
@@ -22,5 +29,30 @@ public class StudentServiceImpl implements StudentService {
         BeanUtils.copyProperties(student, studentEntity);
         studentRepository.save(studentEntity);
         return student;
+    }
+
+    @Override
+    public StudentEntity addCourse(Long studentId, Course course) {
+        Optional<StudentEntity> student = studentRepository.findById(studentId);
+        if(!student.isPresent())
+            return null;
+
+        StudentEntity studentEntity = student.get();
+        Optional<CourseEntity> tmp_course = courseRepository.findByName(course.getName());
+        if(tmp_course.isPresent()) {
+            studentEntity.getCourses().add(tmp_course.get());
+            studentEntity.setCreditHours(studentEntity.getCreditHours() + tmp_course.get().getCreditHours());
+        }else{
+            CourseEntity newCourse = CourseEntity.builder()
+                    .name(course.getName())
+                    .creditHours(course.getCreditHours())
+                    .build();
+            studentEntity.getCourses().add(newCourse);
+            courseRepository.save(newCourse);
+            studentEntity.setCreditHours(studentEntity.getCreditHours() + newCourse.getCreditHours());
+        }
+        studentRepository.save(studentEntity);
+
+        return studentEntity;
     }
 }

@@ -9,6 +9,10 @@ class StudentService {
       student
     );
   }
+  
+  courseEnroll(course) {
+    return null;
+  }
 }
 
 export default new StudentService();
