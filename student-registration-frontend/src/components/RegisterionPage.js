@@ -46,8 +46,11 @@ const RegisterionPage = () => {
       .then((response) => {
         console.log(response); 
         const name = response.data.firstName
+        const studentId = response.data.id
         console.log(name)
-        localStorage.setItem("name", name) 
+        console.log(studentId)
+        localStorage.setItem("name", name)
+        localStorage.setItem("studentId", studentId) 
         navigate("/home");
       })
       .catch((error) => {

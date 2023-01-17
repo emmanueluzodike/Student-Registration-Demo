@@ -33,11 +33,12 @@ public class StudentController {
     public ResponseEntity<StudentEntity> addCourse(@PathVariable Long id,
                                                    @RequestBody Course course){
 
+        System.out.println(course);
         StudentEntity studentEntity = studentService.addCourse(id, course);
         if(studentEntity == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
-        return new ResponseEntity<>(studentEntity, HttpStatus.OK);
+        return ResponseEntity.ok(studentEntity);
     }
 
 

@@ -1,15 +1,34 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@material-ui/core";
+import StudentService from "../service/StudentService";
 
 const Enroll = () => {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
-    const handleAddCourse = () => {
-
-    }
-
+  const studentId = localStorage.getItem("studentId");
+  const handleAddCourse = (e) => {
+    e.preventDefault();
+    const selectedCourseName = selectedCourse;
+    const selectedCourseObject = courses[selectedCourseName];
+    const courseName = selectedCourseObject.name;
+    const courseCreditHours = selectedCourseObject.hours;
+    const courseKey = Object.keys(selectedCourseObject);
+    console.log("coursekey: " + selectedCourseName);
+    console.log("foooo: " + studentId)
+    StudentService.courseEnroll(
+      studentId,
+      selectedCourseName,
+      courseCreditHours
+    )
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   useEffect(() => {
     axios
@@ -50,7 +69,10 @@ const Enroll = () => {
           ))}
         </select>
         <div>
-          <Button className="rounded text-white font-semibold bg-green-400 py-2 px-6 my-4 hover:bg-green-700 hover:text-white transition duration-150">
+          <Button
+            className="rounded text-white font-semibold bg-green-400 py-2 px-6 my-4 hover:bg-green-700 hover:text-white transition duration-150"
+            onClick={handleAddCourse}
+          >
             ADD
           </Button>
         </div>

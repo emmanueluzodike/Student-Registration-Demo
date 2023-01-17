@@ -1,11 +1,13 @@
 package com.manny.studentregistrationapi.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -26,7 +28,7 @@ public class StudentEntity {
     private String major;
     private int creditHours;
 
-
+    //@JsonIgnore
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "student_course",
@@ -34,4 +36,9 @@ public class StudentEntity {
             inverseJoinColumns = { @JoinColumn(name = "course_id") }
     )
     private List<CourseEntity> courses;
+
+    public void addCourse(CourseEntity course){
+        if(courses == null) courses = new ArrayList<>();
+        courses.add(course);
+    }
 }

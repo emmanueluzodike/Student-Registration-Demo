@@ -9,9 +9,17 @@ class StudentService {
       student
     );
   }
-  
-  courseEnroll(course) {
-    return null;
+
+  courseEnroll(studentId, courseName, courseCreditHours) {
+    console.log("studentId: " + studentId)
+    return axios.post(
+      "http://localhost:8080/api/v1/students/enroll/" + studentId + "/courses",
+      {
+        id: studentId,
+        name: courseName,
+        creditHours: courseCreditHours,
+      }
+    );
   }
 }
 
