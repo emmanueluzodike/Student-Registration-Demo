@@ -12,7 +12,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -74,4 +76,23 @@ public class StudentServiceImpl implements StudentService {
         studentRepository.save(studentEntity);
         return studentEntity;
     }
+
+    @Override
+    public List<Course> getAllCoursesOfStudent(Long id) {
+        StudentEntity studentEntity = studentRepository.findById(id).get();
+        System.out.println("StudentEntity: " + studentEntity);
+        List<CourseEntity> courseEntities = studentEntity.getCourses();
+        System.out.println("CourseEntities: " + courseEntities);
+        List<Course> courses = courseEntities
+                .stream()
+                .map(cors -> new Course(
+                        cors.getId(),
+                        cors.getName(),
+                        cors.getCreditHours()))
+                .collect(Collectors.toList());
+        System.out.println("Courses: " + courses);
+        return courses;
+    }
+
+
 }

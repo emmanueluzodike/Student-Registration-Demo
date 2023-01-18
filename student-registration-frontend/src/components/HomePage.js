@@ -8,6 +8,12 @@ const HomePage = () => {
     const name = localStorage.getItem('name')
     const studentId = localStorage.getItem('studentId')
 
+    const handleMyClasses = (e) => {
+      e.preventDefault();
+      localStorage.setItem('studentId', studentId);
+      navigate('/my-classes');
+    }
+
   return (
     <div>
       <nav className="bg-gray-800">
@@ -33,7 +39,7 @@ const HomePage = () => {
             <a
               href="#"
               className="text-white p-2 hover:bg-gray-700 rounded-lg"
-              onClick={() => navigate("/my-classes")}
+              onClick={handleMyClasses}
             >
               My Classes
             </a>

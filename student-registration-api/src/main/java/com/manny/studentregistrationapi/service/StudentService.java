@@ -5,9 +5,14 @@ import com.manny.studentregistrationapi.model.Course;
 import com.manny.studentregistrationapi.model.Student;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public interface StudentService {
     Student addStudent(Student student);
 
     StudentEntity addCourse(Long id, Course course);
+
+
+    List<Course> getAllCoursesOfStudent(Long id);
 }

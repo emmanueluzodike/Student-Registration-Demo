@@ -1,6 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
-import Courses from "./components/Courses";
+import CoursesList from "./components/CoursesList";
 import Enroll from "./components/Enroll";
 import HomePage from "./components/HomePage";
 import Profile from "./components/Profile";
@@ -19,7 +19,7 @@ function App() {
           <Route path="/register" element={<RegisterionPage />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/home" element={<HomePage />} />
-          <Route path="/my-classes" element={<Courses />} />
+          <Route path="/my-classes" element={<CoursesList />} />
           <Route path="/my-profile" element={<Profile />} />
           <Route path="/enroll" element={<Enroll />} />
         </Routes>

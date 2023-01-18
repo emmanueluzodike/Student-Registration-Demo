@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/v1/students")
@@ -49,6 +51,12 @@ public class StudentController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
         return ResponseEntity.ok(studentEntity);
+    }
+
+
+    @GetMapping("/{id}/course")
+    public List<Course> getAllCoursesOfStudent(@PathVariable Long id){
+        return studentService.getAllCoursesOfStudent(id);
     }
 
 
