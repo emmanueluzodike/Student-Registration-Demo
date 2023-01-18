@@ -13,7 +13,7 @@ const HomePage = () => {
       <nav className="bg-gray-800">
         <div className="container mx-auto p-2 flex flex-wrap items-center">
           <div className="flex-1 text-white">
-            <div>Welcome, {name} {studentId}</div>
+            <div>Welcome, {name} </div>
           </div>
           <div className="flex-1 text-right">
             <a
@@ -36,6 +36,14 @@ const HomePage = () => {
               onClick={() => navigate("/my-classes")}
             >
               My Classes
+            </a>
+
+            <a
+              href="#"
+              className="text-white p-2 hover:bg-gray-700 rounded-lg"
+              onClick={() => navigate("/")}
+            >
+              Log Out
             </a>
           </div>
         </div>

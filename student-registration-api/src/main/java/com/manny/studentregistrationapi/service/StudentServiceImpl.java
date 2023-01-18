@@ -2,6 +2,7 @@ package com.manny.studentregistrationapi.service;
 
 import com.manny.studentregistrationapi.entity.CourseEntity;
 import com.manny.studentregistrationapi.entity.StudentEntity;
+import com.manny.studentregistrationapi.exception.EmailAlreadyExistsExeception;
 import com.manny.studentregistrationapi.model.Course;
 import com.manny.studentregistrationapi.model.Student;
 import com.manny.studentregistrationapi.repository.CourseRepository;
@@ -27,10 +28,17 @@ public class StudentServiceImpl implements StudentService {
 
     @Override
     public Student addStudent(Student student) {
+
+
+        if(studentRepository.existsByEmailAddress(student.getEmailAddress())){
+            throw new EmailAlreadyExistsExeception("Email Already Exists");
+        }
+
+
         StudentEntity studentEntity = new StudentEntity();
         BeanUtils.copyProperties(student, studentEntity);
         studentRepository.save(studentEntity);
-        studentEntity = studentRepository.findByPassword(student.getPassword());
+        studentEntity = studentRepository.findByEmailAddress(student.getEmailAddress());
         student.setId(studentEntity.getId());
         return student;
     }

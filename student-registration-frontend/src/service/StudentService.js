@@ -11,7 +11,7 @@ class StudentService {
   }
 
   courseEnroll(studentId, courseName, courseCreditHours) {
-    console.log("studentId: " + studentId)
+    console.log("studentId: " + studentId);
     return axios.post(
       "http://localhost:8080/api/v1/students/enroll/" + studentId + "/courses",
       {
@@ -20,6 +20,14 @@ class StudentService {
         creditHours: courseCreditHours,
       }
     );
+  }
+
+  studentSignIn(emailAddress, password) {
+    console.log("Log in payload: " + emailAddress + " " + password);
+    return axios.post("http://localhost:8080/api/v1/students/signin", {
+      emailAddress: emailAddress,
+      password: password,
+    });
   }
 }
 

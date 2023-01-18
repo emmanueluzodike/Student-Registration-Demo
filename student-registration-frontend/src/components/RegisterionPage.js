@@ -37,11 +37,12 @@ const RegisterionPage = () => {
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [major, setSelectedMajor] = useState("");
+  const [emailAddress, setEmailAddress] = useState("")
 
   const handleSubmit = (e) => {
     e.preventDefault();
     // Send the form data to your backend
-    const student = { firstName, lastName, major, password };
+    const student = { firstName, lastName, emailAddress, major, password };
     StudentService.registerStudent(student)
       .then((response) => {
         console.log(response); 
@@ -56,7 +57,7 @@ const RegisterionPage = () => {
       .catch((error) => {
         console.log(error);
       });
-    console.log({ firstName, lastName, password, selectedMajor: major });
+    console.log({ firstName, lastName, emailAddress, password, selectedMajor: major });
   };
 
   return (
@@ -79,6 +80,14 @@ const RegisterionPage = () => {
             label="Last Name"
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+
+        <div className="flex flex-col mb-4">
+          <TextField
+            label="Email Address"
+            value={emailAddress}
+            onChange={(e) => setEmailAddress(e.target.value)}
           />
         </div>
 

@@ -15,7 +15,13 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "students")
+@Table(
+        name = "students",
+        uniqueConstraints = @UniqueConstraint(
+                name = "emailaddress_unique",
+                columnNames = "email_address"
+        )
+)
 public class StudentEntity {
 
     @Id
@@ -24,6 +30,11 @@ public class StudentEntity {
 
     private String firstName;
     private String lastName;
+    @Column(
+            name = "email_address",
+            nullable = false
+    )
+    private String emailAddress;
     private String password;
     private String major;
     private int creditHours;

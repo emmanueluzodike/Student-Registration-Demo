@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Button } from "@material-ui/core";
 import StudentService from "../service/StudentService";
+import { useNavigate } from "react-router-dom";
 
 const Enroll = () => {
+    const navigate = useNavigate();
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
@@ -29,6 +31,11 @@ const Enroll = () => {
         console.log(error);
       });
   };
+
+  const handleReturnHome = (e) =>{
+    e.preventDefault();
+    navigate('/home')
+  }
 
   useEffect(() => {
     axios
@@ -74,6 +81,13 @@ const Enroll = () => {
             onClick={handleAddCourse}
           >
             ADD
+          </Button>
+
+          <Button
+            className="rounded text-white font-semibold bg-green-400 py-2 px-6 my-4 hover:bg-green-700 hover:text-white transition duration-150"
+            onClick={handleReturnHome}
+          >
+            Return Home
           </Button>
         </div>
       </div>
