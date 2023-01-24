@@ -11,7 +11,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -57,6 +59,15 @@ public class StudentController {
     @GetMapping("/{id}/course")
     public List<Course> getAllCoursesOfStudent(@PathVariable Long id){
         return studentService.getAllCoursesOfStudent(id);
+    }
+
+    @DeleteMapping("/{id}/course/delete")
+    public ResponseEntity<Map<String, Boolean>> deleteCourse(@PathVariable Long id , @RequestBody Course course){
+        boolean deleted = false;
+        deleted = studentService.deleteCourse(id, course);
+        Map<String, Boolean> response = new HashMap<>();
+        response.put("deleted", deleted);
+        return ResponseEntity.ok(response);
     }
 
 

@@ -94,5 +94,18 @@ public class StudentServiceImpl implements StudentService {
         return courses;
     }
 
+    @Override
+    public boolean deleteCourse(Long id, Course course) {
+        StudentEntity studentEntity = studentRepository.findById(id).get();
+        Optional<CourseEntity> courseEntity = courseRepository.findById(course.getId());
+        if(courseEntity.isPresent()){
+            studentEntity.getCourses().remove(courseEntity.get());
+            studentEntity.setCreditHours(studentEntity.getCreditHours() - courseEntity.get().getCreditHours());
+            studentRepository.save(studentEntity);
+            return true;
+        }
+        return false;
+    }
+
 
 }

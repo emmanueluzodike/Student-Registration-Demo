@@ -17,15 +17,31 @@ const CoursesList = () => {
       setLoading(true);
       try {
         const response = await StudentService.listAllCourses(studentId);
-        console.log(response);
+        console.log(response.data);
         setCourseList(response.data);
+        console.log("course list: " + courseList);
       } catch (error) {
         console.log(error);
       }
       setLoading(false);
+      console.log("course list: " + courseList)
     };
-    fetchCourses();
-  }, []);
+    fetchCourses();  }, []);
+
+    const deleteCourse = (e, id) => {
+      e.preventDefault();
+      StudentService.deleteCourse(studentId, id)
+      .then((response) => {
+        if(courseList){
+          setCourseList((prevElement) =>{
+            return prevElement.filter((course) => course.id !== id)
+          });
+        }
+      })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
 
   return (
     <div>
@@ -36,10 +52,7 @@ const CoursesList = () => {
           {!loading && (
             <tbody>
               {courseList.map((course) => (
-                <Course>
-                  course={course}
-                  key={course.id}
-                </Course>
+                <Course course={course} deleteCourse = {deleteCourse} key={course.id} />
               ))}
             </tbody>
           )}

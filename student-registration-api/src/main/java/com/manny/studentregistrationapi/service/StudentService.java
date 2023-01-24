@@ -15,4 +15,6 @@ public interface StudentService {
 
 
     List<Course> getAllCoursesOfStudent(Long id);
+
+    boolean deleteCourse(Long id, Course course);
 }

@@ -17,12 +17,12 @@ public class Course {
     private String name;
     private int creditHours;
 
-    private List<Student> students;
+//    private List<Student> students;
 
 
-    public Course(Long id, String name, int creditHours) {
-        this.id = id;
-        this.name = name;
-        this.creditHours = creditHours;
-    }
+//    public Course(Long id, String name, int creditHours) {
+//        this.id = id;
+//        this.name = name;
+//        this.creditHours = creditHours;
+//    }
 }
