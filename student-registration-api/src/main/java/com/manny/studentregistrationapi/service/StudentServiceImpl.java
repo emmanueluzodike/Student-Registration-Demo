@@ -62,6 +62,9 @@ public class StudentServiceImpl implements StudentService {
         StudentEntity studentEntity = student.get();
         Optional<CourseEntity> tmp_course = courseRepository.findByName(course.getName());
         if(tmp_course.isPresent()) {
+            if(student.get().getCourses().contains(tmp_course.get())){
+                return null;
+            }
             studentEntity.getCourses().add(tmp_course.get());
             studentEntity.setCreditHours(studentEntity.getCreditHours() + tmp_course.get().getCreditHours());
         }else{
@@ -105,6 +108,11 @@ public class StudentServiceImpl implements StudentService {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public boolean emailExists(String emailAddress) {
+        return studentRepository.existsByEmailAddress(emailAddress);
     }
 
 

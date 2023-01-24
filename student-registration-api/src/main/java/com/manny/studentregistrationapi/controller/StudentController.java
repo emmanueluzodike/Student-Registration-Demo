@@ -32,6 +32,10 @@ public class StudentController {
     @PostMapping("/register")
     public ResponseEntity<Object> addStudent(@RequestBody Student student) {
 
+        // check if email already exists
+        if (studentService.emailExists(student.getEmailAddress())) {
+            return new ResponseEntity<>(new ErrorResponse("Email already exists"), HttpStatus.BAD_REQUEST);
+        }
       try{
           Student createdStudent = studentService.addStudent(student);
           return ResponseEntity.status(HttpStatus.CREATED).body(createdStudent);

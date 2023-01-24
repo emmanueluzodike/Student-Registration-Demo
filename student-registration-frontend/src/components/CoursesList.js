@@ -52,11 +52,24 @@ const CoursesList = () => {
           {!loading && (
             <tbody>
               {courseList.map((course) => (
-                <Course course={course} deleteCourse = {deleteCourse} key={course.id} />
+                <Course
+                  course={course}
+                  deleteCourse={deleteCourse}
+                  key={course.id}
+                />
               ))}
             </tbody>
           )}
         </table>
+      </div>
+      <div>
+        <br />
+        <button
+          onClick={(e) => navigate("/home")}
+          className="bg-red-500 hover:bg-red-600 text-white py-2 px-4 rounded-lg"
+        >
+          Return Home
+        </button>
       </div>
     </div>
   );

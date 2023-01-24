@@ -31,13 +31,13 @@ class StudentService {
   }
 
   listAllCourses(id) {
-    return axios.get("http://localhost:8080/api/v1/students/" + 1 + "/course");
+    return axios.get("http://localhost:8080/api/v1/students/" + id + "/course");
   }
 
-  deleteCourse(StudentId, id) {
+  deleteCourse(studentId, id) {
     console.log(id)
     return axios.delete(
-      "http://localhost:8080/api/v1/students/" + 1 + "/course/delete",
+      "http://localhost:8080/api/v1/students/" + studentId + "/course/delete",
       { data: {id: id }}
     );
   }

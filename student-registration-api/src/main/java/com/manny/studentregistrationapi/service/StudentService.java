@@ -17,4 +17,6 @@ public interface StudentService {
     List<Course> getAllCoursesOfStudent(Long id);
 
     boolean deleteCourse(Long id, Course course);
+
+    boolean emailExists(String emailAddress);
 }

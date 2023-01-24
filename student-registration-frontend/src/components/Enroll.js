@@ -9,6 +9,8 @@ const Enroll = () => {
   const [courses, setCourses] = useState([]);
   const [search, setSearch] = useState("");
   const [selectedCourse, setSelectedCourse] = useState(null);
+  const [courseAdded, setCourseAdded] = useState(false);
+  const [courseNotAdded, setCourseNotAdded] = useState(false);
   const studentId = localStorage.getItem("studentId");
   const handleAddCourse = (e) => {
     e.preventDefault();
@@ -26,10 +28,19 @@ const Enroll = () => {
     )
       .then((response) => {
         console.log(response);
+        setCourseAdded(true)
       })
       .catch((error) => {
         console.log(error);
+        setCourseNotAdded(true);
       });
+
+//clears the course added message after 5 seconds
+      setTimeout(() => {
+        setCourseAdded(false);
+        setCourseNotAdded(false);
+      }, 3000);
+
   };
 
   const handleReturnHome = (e) =>{
@@ -43,6 +54,17 @@ const Enroll = () => {
       .then((res) => setCourses(res.data))
       .catch((err) => console.log(err));
   }, []);
+
+  useEffect(() => {
+    let timeoutId;
+    if (courseAdded) {
+      timeoutId = setTimeout(() => {
+        setCourseAdded(false);
+        setCourseNotAdded(false);
+      }, 3000);
+    }
+    return () => clearTimeout(timeoutId);
+  }, [courseAdded]);
 
   const filteredCourses = Object.entries(courses).filter(
     ([courseName, course]) => {
@@ -89,6 +111,8 @@ const Enroll = () => {
           >
             Return Home
           </Button>
+          {courseAdded && <p>`{selectedCourse} has been added`</p>}
+          {courseNotAdded && <p>`{selectedCourse} Already added`</p>}
         </div>
       </div>
     </div>

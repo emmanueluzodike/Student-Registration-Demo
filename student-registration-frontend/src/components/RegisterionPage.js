@@ -38,6 +38,8 @@ const RegisterionPage = () => {
   const [password, setPassword] = useState("");
   const [major, setSelectedMajor] = useState("");
   const [emailAddress, setEmailAddress] = useState("")
+  const [error, setError] = useState(null)
+  // const [accountAleadyExists, setaccountAleadyExists] = useState(false)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -56,6 +58,8 @@ const RegisterionPage = () => {
       })
       .catch((error) => {
         console.log(error);
+        setError(error.response.data.message)
+        // setaccountAleadyExists(true)
       });
     console.log({ firstName, lastName, emailAddress, password, selectedMajor: major });
   };
@@ -90,6 +94,7 @@ const RegisterionPage = () => {
             onChange={(e) => setEmailAddress(e.target.value)}
           />
         </div>
+        {error && <p className="text-red-500">{error}</p>}
 
         <div className="flex flex-col mb-4">
           <TextField
@@ -133,6 +138,7 @@ const RegisterionPage = () => {
             Sign In
           </a>
         </div>
+        {/* {accountAleadyExists && <p className="text-red-500">Account already exists</p>} */}
       </form>
     </div>
   );

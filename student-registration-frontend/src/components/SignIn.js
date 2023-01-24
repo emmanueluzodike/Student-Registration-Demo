@@ -33,6 +33,7 @@ const handleSubmit = (e) => {
     console.log(response);
     const name = response.data.firstName
     localStorage.setItem("name", name)
+    localStorage.setItem("studentId", response.data.id)
     navigate('/home')
   })
   .catch((error) => {

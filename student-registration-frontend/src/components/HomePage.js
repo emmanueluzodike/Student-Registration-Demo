@@ -19,7 +19,7 @@ const HomePage = () => {
       <nav className="bg-gray-800">
         <div className="container mx-auto p-2 flex flex-wrap items-center">
           <div className="flex-1 text-white">
-            <div>Welcome, {name} </div>
+            <div>Welcome, {name} {studentId}</div>
           </div>
           <div className="flex-1 text-right">
             <a
